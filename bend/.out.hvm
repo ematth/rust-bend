@@ -1,22 +1,34 @@
-@Tree/Leaf = (a (* ((a b) b)))
+@Bool/False = (* (a a))
 
-@Tree/Node = (a (b ((a (b c)) (* c))))
+@Bool/True = (a (* a))
 
-@main = h
-  & @sum ~ (g h)
-  & @Tree/Node ~ (c (f g))
-  & @Tree/Node ~ (a (b c))
-  & @Tree/Leaf ~ (1 a)
-  & @Tree/Leaf ~ (2 b)
-  & @Tree/Node ~ (d (e f))
-  & @Tree/Leaf ~ (3 d)
-  & @Tree/Leaf ~ (4 e)
+@List/Cons = (a (b ((a (b c)) (* c))))
 
-@sum = a
-  & @sum__fold0 ~ a
+@List/Nil = (* (a a))
 
-@sum__fold0 = ((@sum__fold0__C0 ((a a) b)) b)
+@first = a
+  & @first__fold0 ~ a
 
-@sum__fold0__C0 = (a (b d))
-  &! @sum__fold0 ~ (a $(:[+] $(c d)))
-  &! @sum__fold0 ~ (b c)
+@first__fold0 = (((a (* a)) (@List/Nil b)) b)
+
+@hasHead = a
+  & @hasHead__fold0 ~ a
+
+@hasHead__fold0 = (((* (* @Bool/True)) (@Bool/False a)) a)
+
+@main = d
+  & @first ~ (c d)
+  & @List/Cons ~ (1 (b c))
+  & @List/Cons ~ (2 (a b))
+  & @List/Cons ~ (3 (@List/Nil a))
+
+@reverse = a
+  & @reverse__fold0 ~ a
+  & @List/Nil ~ *
+
+@reverse__fold0 = ((@reverse__fold0__C0 (@List/Nil a)) a)
+
+@reverse__fold0__C0 = (c (a e))
+  & @List/Cons ~ (b (d e))
+  & @reverse__fold0 ~ (a b)
+  & @List/Cons ~ (c (@List/Nil d))
