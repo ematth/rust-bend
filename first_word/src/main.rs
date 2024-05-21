@@ -1,7 +1,7 @@
 use std::io;
 
 fn main() {
-    let mut string = String::new();
+    let mut string: String = String::new();
     io::stdin()
         .read_line(&mut string)
         .expect("how?");
@@ -10,7 +10,7 @@ fn main() {
     println!("first word -> {}, length -> {}", fw, num);
 }
 
-fn first_word(s: &String) -> (&str, usize) {
+fn first_word(s: &str) -> (&str, usize) {
     let bytes = s.as_bytes();
 
     for (i, &item) in bytes.iter().enumerate() {
