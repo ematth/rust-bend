@@ -1,22 +1,19 @@
 # Tree data structure
 
-type BiTree: 
-  Node {val, ~left, ~right}
-  Leaf {val}
+type Tree:
+  Node { ~left, ~right }
+  Leaf { val }
 
-def BiTree.sum(t):
-  fold t: # recursive match against tree t
-    case BiTree/Node:
-      return t.val + t.left + t.right
-    case BiTree/Leaf:
-      return t.val
+def sum(tree):
+  fold tree:
+    case Tree/Node:
+      return tree.left + tree.right
+    case Tree/Leaf:
+      return tree.val
 
-def main:
-  bend val = 0:
-    when val < 2:
-      # 'fork' calls the bend recursively with the provided values.
-      x = BiTree/Node { val:val, left:fork(val + 1), right:fork(val + 1) }
-    else:
-      # 'else' is the base case, when the condition fails.
-      x = BiTree/Leaf
-  return BiTree.sum(x)
+def main():
+  tree = Tree/Node {
+    left: Tree/Node { left: Tree/Leaf { val: 1 }, right: Tree/Leaf { val: 2 } },
+    right: Tree/Node { left: Tree/Leaf { val: 3 }, right: Tree/Leaf { val: 4 } }
+  }
+  return sum(tree)

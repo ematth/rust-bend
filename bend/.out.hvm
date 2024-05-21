@@ -1,25 +1,22 @@
-@BiTree.sum = a
-  & @BiTree.sum__fold0 ~ a
+@Tree/Leaf = (a (* ((a b) b)))
 
-@BiTree.sum__fold0 = ((@BiTree.sum__fold0__C0 ((a a) b)) b)
+@Tree/Node = (a (b ((a (b c)) (* c))))
 
-@BiTree.sum__fold0__C0 = ($(:[+] $(b $(:[+] $(d e)))) (a (c e)))
-  &! @BiTree.sum__fold0 ~ (a b)
-  &! @BiTree.sum__fold0 ~ (c d)
+@main = h
+  & @sum ~ (g h)
+  & @Tree/Node ~ (c (f g))
+  & @Tree/Node ~ (a (b c))
+  & @Tree/Leaf ~ (1 a)
+  & @Tree/Leaf ~ (2 b)
+  & @Tree/Node ~ (d (e f))
+  & @Tree/Leaf ~ (3 d)
+  & @Tree/Leaf ~ (4 e)
 
-@BiTree/Leaf = (a (* ((a b) b)))
+@sum = a
+  & @sum__fold0 ~ a
 
-@BiTree/Node = (a (b (c ((a (b (c d))) (* d)))))
+@sum__fold0 = ((@sum__fold0__C0 ((a a) b)) b)
 
-@main = a
-  & @BiTree.sum ~ (@main__C0 a)
-
-@main__C0 = a
-  & @main__bend0 ~ (0 a)
-
-@main__bend0 = ({$([<2] ?(((* @BiTree/Leaf) @main__bend0__C0) (a b))) a} b)
-
-@main__bend0__C0 = (* ({a {$([+1] b) $([+1] d)}} f))
-  & @BiTree/Node ~ (a (c (e f)))
-  &! @main__bend0 ~ (b c)
-  &! @main__bend0 ~ (d e)
+@sum__fold0__C0 = (a (b d))
+  &! @sum__fold0 ~ (a $(:[+] $(c d)))
+  &! @sum__fold0 ~ (b c)
