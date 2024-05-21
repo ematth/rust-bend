@@ -1,0 +1,25 @@
+@BiTree.sum = a
+  & @BiTree.sum__fold0 ~ a
+
+@BiTree.sum__fold0 = ((@BiTree.sum__fold0__C0 ((a a) b)) b)
+
+@BiTree.sum__fold0__C0 = ($(:[+] $(b $(:[+] $(d e)))) (a (c e)))
+  &! @BiTree.sum__fold0 ~ (a b)
+  &! @BiTree.sum__fold0 ~ (c d)
+
+@BiTree/Leaf = (a (* ((a b) b)))
+
+@BiTree/Node = (a (b (c ((a (b (c d))) (* d)))))
+
+@main = a
+  & @BiTree.sum ~ (@main__C0 a)
+
+@main__C0 = a
+  & @main__bend0 ~ (0 a)
+
+@main__bend0 = ({$([<2] ?(((* @BiTree/Leaf) @main__bend0__C0) (a b))) a} b)
+
+@main__bend0__C0 = (* ({a {$([+1] b) $([+1] d)}} f))
+  & @BiTree/Node ~ (a (c (e f)))
+  &! @main__bend0 ~ (b c)
+  &! @main__bend0 ~ (d e)
