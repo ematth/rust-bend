@@ -17,6 +17,8 @@
   & @List/concat ~ (a (c d))
   & @List/Cons ~ (b (@List/Nil c))
 
+@List/clear = (* @List/Nil)
+
 @List/concat = ((@List/concat__C1 a) a)
 
 @List/concat__C0 = (* (a (b (c e))))
@@ -28,12 +30,23 @@
 @List/count = a
   & @List/count/aux ~ (0 a)
 
-@List/count/aux = (a ((@List/count/aux__C1 (a b)) b))
+@List/count/aux = (a ((@List/count/aux__C2 (a b)) b))
 
-@List/count/aux__C0 = (* ($([=] $(a b)) (d ($([+] $(b c)) (a e)))))
-  & @List/count/aux ~ (c (d e))
+@List/count/aux__C0 = (* ($([+1] a) a))
 
-@List/count/aux__C1 = (?(((a (* a)) @List/count/aux__C0) b) b)
+@List/count/aux__C1 = (* ($([=] $(a ?(((b b) @List/count/aux__C0) (c d)))) (e (c ({a f} g)))))
+  & @List/count/aux ~ (d (e (f g)))
+
+@List/count/aux__C2 = (?(((a (* a)) @List/count/aux__C1) b) b)
+
+@List/index = ((@List/index__C2 a) a)
+
+@List/index__C0 = ($([+1] $([:-1] b)) (* (a c)))
+  & @List/index ~ (a (b c))
+
+@List/index__C1 = (* (b (c (?(((a (* a)) @List/index__C0) (b (c d))) d))))
+
+@List/index__C2 = (?((* @List/index__C1) a) a)
 
 @List/len = a
   & @List/len/aux ~ (0 a)
@@ -44,6 +57,29 @@
   & @List/len/aux ~ (a (b c))
 
 @List/len/aux__C1 = (?(((a a) @List/len/aux__C0) b) b)
+
+@List/pop_back = ({a b} c)
+  & @List/len ~ (a $([:-1] ?(((* @List/Nil) @List/pop_back__C0) (b c))))
+
+@List/pop_back/aux = (a ((@List/pop_back/aux__C2 (a b)) b))
+
+@List/pop_back/aux__C0 = (?(((* @List/Nil) (* (a a))) b) b)
+
+@List/pop_back/aux__C1 = (* (b (e ({?((* (* (a a))) (b c)) {$([:-1] d) ?(((* @List/Nil) @List/pop_back/aux__C0) (e f))}} h))))
+  & @List/Cons ~ (c (g h))
+  & @List/pop_back/aux ~ (d (f g))
+
+@List/pop_back/aux__C2 = (?(((* @List/Nil) @List/pop_back/aux__C1) a) a)
+
+@List/pop_back__C0 = (* ({a c} d))
+  & @List/pop_back/aux ~ (b (c d))
+  & @List/len ~ (a $([:-1] b))
+
+@List/pop_front = ((@List/pop_front__C1 a) a)
+
+@List/pop_front__C0 = (* (a (b (a b))))
+
+@List/pop_front__C1 = (?((@List/Nil @List/pop_front__C0) a) a)
 
 @List/reverse = a
   & @List/reverse/aux ~ (@List/Nil a)
@@ -56,11 +92,5 @@
 
 @List/reverse/aux__C1 = (?(((a a) @List/reverse/aux__C0) b) b)
 
-@main = g
-  & @List/len ~ (f g)
-  & @List/Cons ~ (1 (e f))
-  & @List/Cons ~ (2 (d e))
-  & @List/Cons ~ (3 (c d))
-  & @List/Cons ~ (4 (b c))
-  & @List/Cons ~ (4 (a b))
-  & @List/Cons ~ (4 (@List/Nil a))
+@main = a
+  & @List/pop_back ~ (@List/Nil a)
