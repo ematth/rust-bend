@@ -21,16 +21,16 @@ def first(list):
     case List/Nil:
       return []
 
-def second(list):
-  idx = 0
-  fold list:
-    case List/Cons and idx == 1:
-      return list.head
-    case List/Cons:
-      list = list.tail
-      idx = idx + 1
-    case List/Nil:
-      return []
+# def second(list):
+#   idx = 0
+#   fold list:
+#     case List/Cons and idx == 1:
+#       return list.head
+#     case List/Cons:
+#       list = list.tail
+#       idx = idx + 1
+#     case List/Nil:
+#       return []
 
 ###############################
 
@@ -49,4 +49,5 @@ def hasHead(list):
 
 def main:
   #return hasHead([]) # Returns Bool/False
-  return first([1,2,3])
+  #return first([1,2,3])
+  return reverse([1,2,3])

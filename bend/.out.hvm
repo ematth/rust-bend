@@ -17,7 +17,7 @@
 @hasHead__fold0 = (((* (* @Bool/True)) (@Bool/False a)) a)
 
 @main = d
-  & @first ~ (c d)
+  & @reverse ~ (c d)
   & @List/Cons ~ (1 (b c))
   & @List/Cons ~ (2 (a b))
   & @List/Cons ~ (3 (@List/Nil a))
