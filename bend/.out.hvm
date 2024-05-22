@@ -1,34 +1,41 @@
-@Bool/False = (* (a a))
-
-@Bool/True = (a (* a))
-
 @List/Cons = (a (b ((a (b c)) (* c))))
 
 @List/Nil = (* (a a))
 
-@first = a
-  & @first__fold0 ~ a
+@List/add_back = (a (b d))
+  & @List/concat ~ (a (c d))
+  & @List/Cons ~ (b (@List/Nil c))
 
-@first__fold0 = (((a (* a)) (@List/Nil b)) b)
+@List/add_front = ((@List/add_front__C1 (@List/add_front__C0 a)) a)
 
-@hasHead = a
-  & @hasHead__fold0 ~ a
+@List/add_front__C0 = (a b)
+  & @List/Cons ~ (a (@List/Nil b))
 
-@hasHead__fold0 = (((* (* @Bool/True)) (@Bool/False a)) a)
+@List/add_front__C1 = (b (c (a e)))
+  & @List/Cons ~ (a (d e))
+  & @List/Cons ~ (b (c d))
 
-@main = d
-  & @reverse ~ (c d)
-  & @List/Cons ~ (1 (b c))
-  & @List/Cons ~ (2 (a b))
-  & @List/Cons ~ (3 (@List/Nil a))
+@List/append = a
+  & @List/add_back ~ a
 
-@reverse = a
-  & @reverse__fold0 ~ a
-  & @List/Nil ~ *
+@List/concat = ((@List/concat__C0 ((a a) b)) b)
 
-@reverse__fold0 = ((@reverse__fold0__C0 (@List/Nil a)) a)
+@List/concat__C0 = (a (b (c e)))
+  & @List/Cons ~ (a (d e))
+  & @List/concat ~ (b (c d))
 
-@reverse__fold0__C0 = (c (a e))
-  & @List/Cons ~ (b (d e))
-  & @reverse__fold0 ~ (a b)
-  & @List/Cons ~ (c (@List/Nil d))
+@List/reverse = a
+  & @List/reverse/aux ~ (@List/Nil a)
+
+@List/reverse/aux = (b ((@List/reverse/aux__C0 ((a a) (b c))) c))
+
+@List/reverse/aux__C0 = (a (d (b e)))
+  & @List/reverse/aux ~ (c (d e))
+  & @List/Cons ~ (a (b c))
+
+@main = e
+  & @List/reverse ~ (d e)
+  & @List/Cons ~ (1 (c d))
+  & @List/Cons ~ (2 (b c))
+  & @List/Cons ~ (3 (a b))
+  & @List/Cons ~ (4 (@List/Nil a))

@@ -1,53 +1,42 @@
-# def sum(list):
-#   fold list:
-#     case List/Cons:
-#       return list.head + list.tail
-#     case List/Nil:
-#       return 0
+### List Type Definition: ###
 
-def reverse(list):
-  # exercise
-  newlist = []
-  fold list:
-    case List/Cons:
-      return [list.tail, list.head]
-    case List/Nil:
-      return []
+# type List:
+#   Cons { head, ~tail }
+#   Nil
 
-def first(list):
-  fold list:
-    case List/Cons:
-      return list.head
-    case List/Nil:
-      return []
+##############################
 
-# def second(list):
-#   idx = 0
-#   fold list:
-#     case List/Cons and idx == 1:
-#       return list.head
-#     case List/Cons:
-#       list = list.tail
-#       idx = idx + 1
-#     case List/Nil:
-#       return []
+# List to list concatenation
+List/concat = @l1 @l2
+  match l1 {
+    List/Cons: (List/Cons l1.head (List/concat l1.tail l2))
+    List/Nil: l2
+  }
 
-###############################
+# List add_front
+List/add_front = @l @e
+  match l {
+    List/Cons: (List/Cons e l)
+    List/Nil: (List/Cons e List/Nil)
+  }
 
-type Bool:
-  True
-  False
+# List add_back (append)
+List/add_back = @l @e
+  (List/concat l (List/Cons e List/Nil))
 
-def hasHead(list):
-  fold list:
-    case List/Cons:
-      return Bool/True
-    case List/Nil:
-      return Bool/False
+List/append = @l @e # other acceptable function name
+  (List/add_back l e)
 
-###############################
+List/reverse/aux = @acc @l
+  match l {
+    List/Nil: acc
+    List/Cons: (List/reverse/aux (List/Cons l.head acc) l.tail)
+  }
 
-def main:
-  #return hasHead([]) # Returns Bool/False
-  #return first([1,2,3])
-  return reverse([1,2,3])
+List/reverse = @l
+  (List/reverse/aux [] l)
+
+main = (List/reverse [1, 2, 3, 4, 5])
+#main = (List/append [1, 2] 3)
+#main = (List/add_front [2, 3] 1)
+#main = (List/concat [1, 2] [3, 4])
